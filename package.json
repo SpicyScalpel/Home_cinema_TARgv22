@@ -19,6 +19,8 @@
   "homepage": "https://github.com/SpicyScalpel/Home_cinema_TARgv22#readme",
   "dependencies": {
     "express": "^4.18.2",
-    "swagger-ui-express": "^5.0.0"
+    "node": "^21.2.0",
+    "swagger-ui-express": "^5.0.0",
+    "yamljs": "^0.3.0"
   }
 }

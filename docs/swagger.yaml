@@ -1,0 +1,90 @@
+openapi: 3.0.2
+info:
+    title: TARGV22-KINOAPI
+    version: 1.0.0
+    description: KINO RUUMID TELLIMINE
+paths:
+    /theaters:
+        get:
+            tags:
+                - THEATRES
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                list of theatres:
+                                    value:
+                                        - The poidgeon
+                                        - Kunda Kino
+                                        - 'Paladins:Champions of the Realm '
+                                        - Super Mario Bros. Wonder
+                    description: Return all theatres in array
+            description: RETURNS A LIST OF THE  ROOMS IN API
+    '/theaters/{id}':
+        get:
+            tags:
+                - details
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                Full  details of Theatre:
+                                    value: |-
+                                        [
+                                               'id':1,
+                                              'name':"The poidgeon",
+                                              'price':290,
+                                              'rating': 3
+                                                  
+                                              
+                                            
+                                        ]
+                    description: Return full description of a given id theatre
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                            examples:
+                                error:
+                                    value:
+                                        error: Theatre \w+ was not found in game array.
+                    description: |+
+                        Theatre was not found
+
+            operationId: id
+            summary: get full details of a theatre
+            description: |
+                returns  full  details of a given  id game
+        parameters:
+            -
+                examples:
+                    Interger:
+                        value: '55'
+                name: id
+                description: Id for Theatre in array
+                schema:
+                    type: integer
+                in: path
+                required: true
+components:
+    schemas:
+        error:
+            title: Root Type for error
+            description: ''
+            type: object
+            properties:
+                error:
+                    type: string
+            example:
+                error: Error message
