@@ -1,0 +1,42 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+      "title": "TARGV22-KINOAPI",
+      "version": "1.0.0",
+      "description": "KINO RUUMID TELLIMINE"
+  },
+  "paths": {
+      "/theaters": {
+          "get": {
+              "tags": [
+                  "THEATRES"
+              ],
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "type": "array",
+                                  "items": {
+                                      "type": "string"
+                                  }
+                              },
+                              "examples": {
+                                  "list of theatres": {
+                                      "value": [
+                                          "The poidgeon",
+                                          "Kunda Kino",
+                                          "Paladins:Champions of the Realm ",
+                                          "Super Mario Bros. Wonder"
+                                      ]
+                                  }
+                              }
+                          }
+                      }
+                  }
+              },
+              "description": "RETURNS A LIST OF THE  ROOMS IN API"
+          }
+      }
+  }
+}
