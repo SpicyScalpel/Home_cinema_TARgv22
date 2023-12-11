@@ -1,4 +1,4 @@
-const express= require('express')();
+const express = require('express')
 const app= express()
 const port=8080
 const { readdirSync } = require('fs');
@@ -30,6 +30,7 @@ const  theaters = [
 // res.end()
 
 // })
+//
 
 app.post('/theaters',(req,res)=>{
     if (!req.body.name|| !req.body.price||!req.body.rating){
@@ -44,7 +45,7 @@ app.post('/theaters',(req,res)=>{
     theaters.push(theater)
     res.status(201)
     .location('${getBaseUrl(req)}/theaters/${theaters.length}')
-    .send(game)
+    .send(theater)
     
 })
 
@@ -56,6 +57,16 @@ app.get('/theaters/:id',(req,res) => {
           
         res.send(theaters[req.params.id-1])
 
+})
+
+app.delete('/theaters/:id', (req, res) => {
+    if (typeof theaters [req.params.id - 1] === 'undefined') {
+        return res.status(404).send({error: "Theater not found"})
+    }
+
+    theaters.splice(req.params.id - 1, 1)
+
+    res.status(204).send({error: "No content"})
 })
 
 

@@ -6,8 +6,7 @@ info:
 paths:
     /theaters:
         get:
-            tags:
-                - THEATRES
+            tags: []
             responses:
                 '200':
                     content:
@@ -25,6 +24,48 @@ paths:
                                         - Super Mario Bros. Wonder
                     description: Return all theatres in array
             description: RETURNS A LIST OF THE  ROOMS IN API
+        post:
+            requestBody:
+                description: a new  ytheatre to be created
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/error'
+                        examples:
+                            parameters missing:
+                                value:
+                                    error: one  or all parameters missing
+                required: true
+            tags:
+                - new-game
+            responses:
+                '201':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/new-theatre'
+                            examples:
+                                theatre that is added:
+                                    value: |-
+                                        {
+                                            
+                                            "id":"new theatre",
+                                                "name":"theatre",
+                                                "price":0,24,
+                                                "rating": 5
+                                            }
+                                            
+                                            
+                                        }
+                    description: new theatre has been created.
+                '400':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                    description: one or all parameters are missing
+            summary: Create a theatre into the API (either db or array)
+            description: Creates a new theatre
     '/theaters/{id}':
         get:
             tags:
@@ -66,6 +107,58 @@ paths:
             summary: get full details of a theatre
             description: |
                 returns  full  details of a given  id game
+        delete:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/delete-theater'
+                        examples:
+                            theater to be deleted:
+                                value:
+                                    id: 19
+                required: true
+            tags:
+                - delete
+            parameters:
+                -
+                    examples:
+                        Interger:
+                            value: '55'
+                    name: id
+                    description: Id for Theatre in array
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+            responses:
+                '204':
+                    headers:
+                        No http headers have been defined: {}
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                            examples:
+                                204 response:
+                                    value:
+                                        error: No Content
+                    description: No Content
+                '404':
+                    headers:
+                        No http headers have been defined: {}
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                            examples:
+                                Theater was not found:
+                                    value:
+                                        error: Theater was not found
+                    description: theater was not found
+            operationId: Id
+            description: |
+                Delete a theater of the given id
         parameters:
             -
                 examples:
@@ -88,3 +181,24 @@ components:
                     type: string
             example:
                 error: Error message
+        new-theatre:
+            description: '  new Theatre '
+            required:
+                - new-theatre
+            type: object
+            properties:
+                new-theatre:
+                    description: ''
+                    type: string
+        delete-theater:
+            title: Root Type for delete-theater
+            description: ''
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    format: int32
+                    type: integer
+            example:
+                id: 1
