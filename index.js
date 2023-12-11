@@ -30,6 +30,7 @@ const  theaters = [
 // res.end()
 
 // })
+//
 
 app.post('/theaters',(req,res)=>{
     if (!req.body.name|| !req.body.price||!req.body.rating){
