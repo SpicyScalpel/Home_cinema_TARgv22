@@ -6,7 +6,8 @@ info:
 paths:
     /theaters:
         get:
-            tags: []
+            tags:
+                - details
             responses:
                 '200':
                     content:
@@ -23,7 +24,8 @@ paths:
                                         - 'Paladins:Champions of the Realm '
                                         - Super Mario Bros. Wonder
                     description: Return all theatres in array
-            description: RETURNS A LIST OF THE  ROOMS IN API
+            summary: Get full details of theaters
+            description: RETURNS A LIST OF THE  theaters IN API
         post:
             requestBody:
                 description: a new  ytheatre to be created
@@ -37,7 +39,7 @@ paths:
                                     error: one  or all parameters missing
                 required: true
             tags:
-                - new-game
+                - new-theatre
             responses:
                 '201':
                     content:
@@ -105,19 +107,10 @@ paths:
 
             operationId: id
             summary: get full details of a theatre
-            description: |
-                returns  full  details of a given  id game
+            description: |+
+                returns  full  details of a given  theatre, based on user input id by user
+
         delete:
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/delete-theater'
-                        examples:
-                            theater to be deleted:
-                                value:
-                                    id: 19
-                required: true
             tags:
                 - delete
             parameters:
@@ -152,11 +145,14 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/error'
                             examples:
-                                Theater was not found:
-                                    value:
-                                        error: Theater was not found
+                                Theatre /w+ was not found:
+                                    value: |-
+                                        {
+                                            "error: "Theatre \\w+ was not found"
+                                        }
                     description: theater was not found
             operationId: Id
+            summary: Delete a theatre by id
             description: |
                 Delete a theater of the given id
         parameters:
@@ -184,10 +180,20 @@ components:
         new-theatre:
             description: '  new Theatre '
             required:
-                - new-theatre
+                - name
+                - rating
+                - price
             type: object
             properties:
-                new-theatre:
+                rating:
+                    format: int32
+                    description: ''
+                    type: integer
+                price:
+                    format: int32
+                    description: ''
+                    type: integer
+                name:
                     description: ''
                     type: string
         delete-theater:
