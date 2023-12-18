@@ -17,7 +17,7 @@ const  theaters = [
    { id:4, name: "Super Mario Bros. Wonder" ,price:644,rating:6  }
 ]
 
-// app.get('/theaters ',(req, res)=>{res.send(theaters)})
+app.get('/theaters ',(req, res)=>{res.send(theaters)})
 
 // app.post('/theaters',(req,res) => {
 //     theaters.push({
@@ -31,6 +31,17 @@ const  theaters = [
 
 // })
 //
+
+app.get('/theaters/:id',(req,res) => {
+     if(typeof theaters[req.params.id-1]==='undefined') {
+        return res.status(404).send({error: "Theater not found"})
+     }
+          
+        res.send(theaters[req.params.id-1])
+
+})
+
+app.get('/theaters',(req,res)=>{res .send (theaters)});
 
 app.post('/theaters',(req,res)=>{
     if (!req.body.name|| !req.body.price||!req.body.rating){
@@ -47,36 +58,24 @@ app.post('/theaters',(req,res)=>{
     .location('${getBaseUrl(req)}/theaters/${theaters.length}')
     .send(theater)
     
-})
-
-
-app.get('/theaters/:id',(req,res) => {
-     if(typeof theaters[req.params.id-1]==='undefined') {
-        return res.status(404).send({error: "Game not found"})
-     }
-          
-        res.send(theaters[req.params.id-1])
-
-})
+});
 
 app.delete('/theaters/:id', (req, res) => {
     if (typeof theaters [req.params.id - 1] === 'undefined') {
         return res.status(404).send({error: "Theater not found"})
-    }
+    };
 
     theaters.splice(req.params.id - 1, 1)
 
     res.status(204).send({error: "No content"})
-})
+});
 
 
-// app.get('/theaters',(req,res)=>{res .send (["The poidgeon","Kunda Kino","Paladins:Champions of the Realm ","Super Mario Bros. Wonder"])})
-app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
-
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.listen(port, () => {
     console.log(`API up at: http://localhost:${port}`)
-})
+});
 function getBaseUrl(req){
     return req.connection && req.connection.encrypted ? 'https':
     'https'+'://${req.headers.host}'
