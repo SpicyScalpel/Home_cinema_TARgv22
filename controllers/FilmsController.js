@@ -8,8 +8,8 @@ exports.getAll = async (req, res) => {
 
 exports.getById = async (req,res) => {
     const Films = await Film.findByPk(req.params.id)
-    res.send(Films)
-    if (Films == null) {
+    
+    if (Films === null) {
         res.status(404).send({"error":"Service not found"})
         return
     }
