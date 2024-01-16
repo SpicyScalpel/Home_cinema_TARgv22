@@ -47,12 +47,12 @@ let theatre = {
 })
 
 
-
+//delete theater from database
 app.delete('/theaters/:id', (req, res) =>{
 
     if(typeof theaters[req.params.id - 1] === 'undefined')
     {
-        return res.status(404).send({error: "Theatre not found"})
+        return res.status(404).send({error: "Theatre is not found"})
     }
     theaters.splice(req.params.id -1, 1)
     res.status(204).send({error: "No Content"})
