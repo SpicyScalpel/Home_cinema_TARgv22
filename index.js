@@ -23,7 +23,7 @@ require("./routes/app_routes")(app)
 app.get('/theaters/:id', (req, res) =>{
     if(typeof theaters[req.params.id - 1] === 'undefined')
     {
-        return res.status(404).send({error: "theatre is not found"})
+        return res.status(404).send({error: "theatre  not found"})
     }
     res.send(theaters[req.params.id - 1])
 })
