@@ -17,3 +17,4 @@ module.exports = (app) => {
       .put(FilmsController.updateById)
       .delete(FilmsController.deleteById)
 }
+//all methods for getting list of theaters and films
