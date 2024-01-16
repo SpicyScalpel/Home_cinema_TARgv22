@@ -17,5 +17,3 @@ module.exports = (app) => {
       .put(FilmsController.updateById)
       .delete(FilmsController.deleteById)
 }
-
-
