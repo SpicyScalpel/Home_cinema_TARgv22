@@ -39,7 +39,7 @@ let theatre = {
     price: req.body.price,
     rating: req.body.rating 
 }
-    theaters.push(theatre)
+    theaters.push(theatre) //adding theater
 
     res.status(201)
     .location(`${getBaseUrl(req)}/theaters/${theaters.length}`)
