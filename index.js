@@ -31,7 +31,7 @@ app.get('/theaters/:id', (req, res) =>{
 
 app.post('/theaters', (req, res) =>{
 if (!req.body.name || !req.body.price || !req.body.rating) {
-    return res.status(400).send({error: "One or all parameters are missing"})
+    return res.status(400).send({error: "One or all parameters are missing in table"})
 }
 let theatre = {
     id: theatres.length +1,
