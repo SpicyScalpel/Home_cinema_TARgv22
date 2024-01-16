@@ -18,6 +18,7 @@ require("./routes/app_routes")(app)
 // app.getAll('/theatres', (req, res) => {
 //     res.send(theatres)
 // })
+// list of theaters
 
 
 app.get('/theaters/:id', (req, res) =>{
