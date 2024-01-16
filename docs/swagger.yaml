@@ -1,0 +1,594 @@
+openapi: 3.0.2
+info:
+    title: TARGV22-KINOAPI
+    version: 1.0.0
+    description: KINO RUUMID TELLIMINE
+paths:
+    /theaters:
+        get:
+            tags:
+                - details
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                list of theatres:
+                                    value:
+                                        - The poidgeon
+                                        - Kunda Kino
+                                        - 'Paladins:Champions of the Realm '
+                                        - Super Mario Bros. Wonder
+                    description: Return all theatres in array
+            summary: Get full details of theaters
+            description: RETURNS A LIST OF THE  theaters IN API
+        post:
+            requestBody:
+                description: a new  ytheatre to be created
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/error'
+                        examples:
+                            parameters missing:
+                                value:
+                                    error: one  or all parameters missing
+                required: true
+            tags:
+                - new-theatre
+            responses:
+                '201':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/new-theatre'
+                            examples:
+                                theatre that is added:
+                                    value: |-
+                                        {
+                                            
+                                            "id":"new theatre",
+                                                "name":"theatre",
+                                                "price":0,24,
+                                                "rating": 5
+                                            }
+                                            
+                                            
+                                        }
+                    description: new theatre has been created.
+                '400':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                    description: one or all parameters are missing
+            summary: Create a theatre into the API (either db or array)
+            description: Creates a new theatre
+    '/theaters/{id}':
+        get:
+            tags:
+                - details
+            parameters:
+                -
+                    examples:
+                        Interger:
+                            value: '55'
+                    name: id
+                    description: Id for Theatre in array
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                Full  details of Theatre:
+                                    value: |-
+                                        [
+                                               'id':1,
+                                              'name':"The poidgeon",
+                                              'price':290,
+                                              'rating': 3
+                                                  
+                                              
+                                            
+                                        ]
+                    description: Returns full description of a given id theatres
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                            examples:
+                                error:
+                                    value:
+                                        error: Theatre \w+ was not found in game array.
+                    description: |+
+                        Theatre was not found
+
+            operationId: id
+            summary: get full details of a theatre
+            description: |+
+                returns  full  details of a given  theatre, based on user input id by user
+
+        delete:
+            tags:
+                - delete
+            parameters:
+                -
+                    examples:
+                        Interger:
+                            value: '55'
+                    name: id
+                    description: Id for Theatre in array
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+            responses:
+                '204':
+                    headers:
+                        No http headers have been defined: {}
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                            examples:
+                                204 response:
+                                    value:
+                                        error: No Content
+                    description: No Content
+                '404':
+                    headers:
+                        No http headers have been defined: {}
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                            examples:
+                                Theatre /w+ was not found:
+                                    value: |-
+                                        {
+                                            "error: "Theatre \\w+ was not found"
+                                        }
+                    description: theater was not found
+            operationId: Id
+            summary: Delete a theatre by id
+            description: |
+                Delete a theater of the given id
+        parameters:
+            -
+                examples:
+                    Interger:
+                        value: '55'
+                name: id
+                description: Id for Theatre in array
+                schema:
+                    type: integer
+                in: path
+                required: true
+    /films:
+        get:
+            tags:
+                - details
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                films:
+                                    value:
+                                        -
+                                            - Estonia History
+                                            - Kunda Kino
+                                            - Super Mario Bros. Wonder
+                    description: return all films in array
+            summary: get full details of films
+            description: return a list of the films in API
+        post:
+            requestBody:
+                description: a new film to be created
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/error'
+                        examples:
+                            parameter missing:
+                                value:
+                                    error: one  or all parameters missing
+                required: true
+            tags:
+                - new-film
+            responses:
+                '201':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/new-film'
+                            examples:
+                                film:
+                                    value: |-
+                                        {
+                                            
+                                            "id":"new theatre",
+                                                "Name":"theatre",
+                                                "Time":0,24,
+                                                "Genre": 5
+                                            }
+                                            
+                                            
+                                        }
+                    description: new film has been defined
+                '400':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                    description: one or all parameters are missing
+            summary: Create a films into the API (either db or array)
+            description: Create a new films
+    '/films/{id}':
+        get:
+            tags:
+                - details
+            parameters:
+                -
+                    examples:
+                        interger:
+                            value: '42'
+                    name: id
+                    description: id for films in array
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                films:
+                                    value: |-
+                                        [
+
+                                               'id':1,
+                                              'name':"The poidgeon",
+                                              'time':290,
+                                              'genre': "action"
+                                                  
+                                              
+
+                                        ]
+                    description: Returns full description of a given id films
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                            examples:
+                                error:
+                                    value: |-
+                                        {
+                                            "error": "Films \w+ was not found in array."
+                                        }
+                    description: Films not found
+            operationId: id
+            summary: get full details a film
+            description: 'returns full details of a given film,based on user input'
+        delete:
+            tags:
+                - delete
+            parameters:
+                -
+                    examples:
+                        interger:
+                            value: '12'
+                    name: id
+                    description: Id for film  in array
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+            operationId: id
+            summary: Delete a theatre by id
+            description: 'returns  full  details of a given  film, based on user input id by user'
+components:
+    schemas:
+        error:
+            title: Root Type for error
+            description: ''
+            type: object
+            properties:
+                error:
+                    type: string
+            example:
+                error: Error message
+        new-theatre:
+            description: '  new Theatre '
+            required:
+                - name
+                - rating
+                - price
+            type: object
+            properties:
+                rating:
+                    format: int32
+                    description: ''
+                    type: integer
+                price:
+                    format: int32
+                    description: ''
+                    type: integer
+                name:
+                    description: ''
+                    type: string
+        delete-theater:
+            title: Root Type for delete-theater
+            description: ''
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    format: int32
+                    type: integer
+            example:
+                id: 1
+        new-film:
+            description: ''
+            required:
+                - Name
+                - Time
+                - Genre
+            type: object
+            properties:
+                Name:
+                    description: ''
+                    type: string
+                Time:
+                    format: int64
+                    description: ''
+                    type: integer
+                Genre:
+                    description: ''
+                    type: string
+        delete-film:
+            description: ''
+            required:
+                - Id
+            type: object
+            properties:
+                Id:
+                    format: int32
+                    description: ''
+                    type: integer
+
+
+# openapi: 3.0.2
+# info:
+#     title: TARGV22-KINOAPI
+#     version: 1.0.0
+#     description: KINO RUUMID TELLIMINE
+# paths:
+#     /theaters:
+#         get:
+#             tags:
+#                 - details
+#             responses:
+#                 '200':
+#                     content:
+#                         application/json:
+#                             schema:
+#                                 type: array
+#                                 items:
+#                                     type: string
+#                             examples:
+#                                 list of theatres:
+#                                     value:
+#                                         - The poidgeon
+#                                         - Kunda Kino
+#                                         - 'Paladins:Champions of the Realm '
+#                                         - Super Mario Bros. Wonder
+#                     description: Return all theatres in array
+#             summary: Get full details of theaters
+#             description: RETURNS A LIST OF THE  theaters IN API
+#         post:
+#             requestBody:
+#                 description: a new  ytheatre to be created
+#                 content:
+#                     application/json:
+#                         schema:
+#                             $ref: '#/components/schemas/error'
+#                         examples:
+#                             parameters missing:
+#                                 value:
+#                                     error: one  or all parameters missing
+#                 required: true
+#             tags:
+#                 - new-theatre
+#             responses:
+#                 '201':
+#                     content:
+#                         application/json:
+#                             schema:
+#                                 $ref: '#/components/schemas/new-theatre'
+#                             examples:
+#                                 theatre that is added:
+#                                     value: |-
+#                                         {
+                                            
+#                                             "id":"new theatre",
+#                                                 "name":"theatre",
+#                                                 "price":0,24,
+#                                                 "rating": 5
+#                                             }
+                                            
+                                            
+#                                         }
+#                     description: new theatre has been created.
+#                 '400':
+#                     content:
+#                         application/json:
+#                             schema:
+#                                 $ref: '#/components/schemas/error'
+#                     description: one or all parameters are missing
+#             summary: Create a theatre into the API (either db or array)
+#             description: Creates a new theatre
+#     '/theaters/{id}':
+#         get:
+#             tags:
+#                 - details
+#             responses:
+#                 '200':
+#                     content:
+#                         application/json:
+#                             schema:
+#                                 type: array
+#                                 items:
+#                                     type: string
+#                             examples:
+#                                 Full  details of Theatre:
+#                                     value: |-
+#                                         [
+#                                                'id':1,
+#                                               'name':"The poidgeon",
+#                                               'price':290,
+#                                               'rating': 3
+                                                  
+                                              
+                                            
+#                                         ]
+#                     description: Return full description of a given id theatre
+#                 '404':
+#                     content:
+#                         application/json:
+#                             schema:
+#                                 $ref: '#/components/schemas/error'
+#                             examples:
+#                                 error:
+#                                     value:
+#                                         error: Theatre \w+ was not found in game array.
+#                     description: |+
+#                         Theatre was not found
+
+#             operationId: id
+#             summary: get full details of a theatre
+#             description: |+
+#                 returns  full  details of a given  theatre, based on user input id by user
+
+#         delete:
+#             tags:
+#                 - delete
+#             parameters:
+#                 -
+#                     examples:
+#                         Interger:
+#                             value: '55'
+#                     name: id
+#                     description: Id for Theatre in array
+#                     schema:
+#                         type: integer
+#                     in: path
+#                     required: true
+#             responses:
+#                 '204':
+#                     headers:
+#                         No http headers have been defined: {}
+#                     content:
+#                         application/json:
+#                             schema:
+#                                 $ref: '#/components/schemas/error'
+#                             examples:
+#                                 204 response:
+#                                     value:
+#                                         error: No Content
+#                     description: No Content
+#                 '404':
+#                     headers:
+#                         No http headers have been defined: {}
+#                     content:
+#                         application/json:
+#                             schema:
+#                                 $ref: '#/components/schemas/error'
+#                             examples:
+#                                 Theatre /w+ was not found:
+#                                     value: |-
+#                                         {
+#                                             "error: "Theatre \\w+ was not found"
+#                                         }
+#                     description: theater was not found
+#             operationId: Id
+#             summary: Delete a theatre by id
+#             description: |
+#                 Delete a theater of the given id
+#         parameters:
+#             -
+#                 examples:
+#                     Interger:
+#                         value: '55'
+#                 name: id
+#                 description: Id for Theatre in array
+#                 schema:
+#                     type: integer
+#                 in: path
+#                 required: true
+# components:
+#     schemas:
+#         error:
+#             title: Root Type for error
+#             description: ''
+#             type: object
+#             properties:
+#                 error:
+#                     type: string
+#             example:
+#                 error: Error message
+#         new-theatre:
+#             description: '  new Theatre '
+#             required:
+#                 - name
+#                 - rating
+#                 - price
+#             type: object
+#             properties:
+#                 rating:
+#                     format: int32
+#                     description: ''
+#                     type: integer
+#                 price:
+#                     format: int32
+#                     description: ''
+#                     type: integer
+#                 name:
+#                     description: ''
+#                     type: string
+#         delete-theater:
+#             title: Root Type for delete-theater
+#             description: ''
+#             required:
+#                 - id
+#             type: object
+#             properties:
+#                 id:
+#                     format: int32
+#                     type: integer
+#             example:
+#                 id: 1
